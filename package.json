@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SAP Book-Store – Learning POC",
   "scripts": {
-    "start": "cds-serve",
+    "start": "cds deploy --to sqlite && cds serve",
     "watch": "cds watch"
   },
   "dependencies": {
@@ -15,7 +15,7 @@
     "requires": {
       "db": {
         "kind": "sqlite",
-        "credentials": { "url": ":memory:" }
+        "credentials": { "url": "bookstore.db" }
       },
       "auth": {
         "kind": "mocked",
