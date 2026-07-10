@@ -36,6 +36,7 @@
   </mvc:dependents>
 
   <!-- ── Main Page ─────────────────────────────────────────────────────── -->
+  <App>
   <Page title="Manage Authors – Admin">
     <headerContent>
       <Button text="New Author" type="Emphasized" icon="sap-icon://add" press=".onNew" />
@@ -77,5 +78,6 @@
       </Table>
     </content>
   </Page>
+  </App>
 
 </mvc:View>
