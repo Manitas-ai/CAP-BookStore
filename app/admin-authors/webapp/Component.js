@@ -1,6 +1,6 @@
-sap.ui.define(["sap/fe/core/AppComponent"], function (AppComponent) {
+sap.ui.define(["sap/ui/core/UIComponent"], function (UIComponent) {
   "use strict";
-  return AppComponent.extend("bookstore.admin.authors", {
+  return UIComponent.extend("bookstore.admin.authors", {
     metadata: { manifest: "json" }
   });
 });

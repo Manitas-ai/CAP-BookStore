@@ -1,0 +1,99 @@
+<mvc:View
+  controllerName="bookstore.admin.books.controller.Books"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <!-- ── Create / Edit Dialog ──────────────────────────────────────────── -->
+  <mvc:dependents>
+    <Dialog id="bookDialog" title="{dialog>/title}" contentWidth="600px"
+      draggable="true" resizable="true">
+      <content>
+        <f:SimpleForm layout="ResponsiveGridLayout" editable="true"
+          labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1"
+          class="sapUiSmallMargin">
+          <f:content>
+            <Label text="Title" required="true" />
+            <Input value="{dialog>/data/title}" placeholder="Book title" />
+
+            <Label text="Author" required="true" />
+            <Select id="selAuthor" selectedKey="{dialog>/data/author_ID}"
+              forceSelection="false" width="100%" />
+
+            <Label text="Published Date" />
+            <DatePicker value="{dialog>/data/publishedDate}"
+              valueFormat="yyyy-MM-dd" displayFormat="MMM d, yyyy" />
+
+            <Label text="Publisher" />
+            <Input value="{dialog>/data/publishHouse}" placeholder="Publisher name" />
+
+            <Label text="Stock" />
+            <Input value="{dialog>/data/stock}" type="Number" />
+
+            <Label text="Abstract" />
+            <TextArea value="{dialog>/data/abstract}" rows="5" width="100%" />
+          </f:content>
+        </f:SimpleForm>
+      </content>
+      <beginButton>
+        <Button text="Save" type="Emphasized" press=".onSave" />
+      </beginButton>
+      <endButton>
+        <Button text="Cancel" press=".onCancel" />
+      </endButton>
+    </Dialog>
+  </mvc:dependents>
+
+  <!-- ── Main Page ─────────────────────────────────────────────────────── -->
+  <Page title="Manage Books – Admin">
+    <headerContent>
+      <Button text="New Book" type="Emphasized" icon="sap-icon://add" press=".onNew" />
+    </headerContent>
+    <content>
+      <Table
+        id="booksTable"
+        items="{
+          path: '/Books',
+          parameters: {
+            $expand: 'author($select=ID,name)',
+            $select: 'ID,title,author_ID,publishedDate,publishHouse,stock,abstract'
+          }
+        }"
+        growing="true"
+        growingThreshold="20"
+        noDataText="No books yet. Click 'New Book' to add one.">
+
+        <columns>
+          <Column width="28%"><Text text="Title" /></Column>
+          <Column width="18%"><Text text="Author" /></Column>
+          <Column width="12%"><Text text="Published" /></Column>
+          <Column width="20%"><Text text="Publisher" /></Column>
+          <Column width="8%" hAlign="End"><Text text="Stock" /></Column>
+          <Column width="14%" hAlign="End"><Text text="Actions" /></Column>
+        </columns>
+
+        <items>
+          <ColumnListItem>
+            <cells>
+              <Text text="{title}" />
+              <Text text="{author/name}" />
+              <Text text="{publishedDate}" />
+              <Text text="{publishHouse}" />
+              <ObjectNumber
+                number="{stock}"
+                state="{= ${stock} > 5 ? 'Success' : ${stock} > 0 ? 'Warning' : 'Error'}" />
+              <HBox justifyContent="End">
+                <Button icon="sap-icon://edit"   tooltip="Edit"   type="Transparent" press=".onEdit" />
+                <Button icon="sap-icon://delete" tooltip="Delete" type="Transparent" press=".onDelete" />
+              </HBox>
+            </cells>
+          </ColumnListItem>
+        </items>
+
+      </Table>
+    </content>
+  </Page>
+
+</mvc:View>

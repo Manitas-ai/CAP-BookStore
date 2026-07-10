@@ -4,91 +4,37 @@
     "id": "bookstore.admin.books",
     "type": "application",
     "title": "Manage Books",
-    "description": "Admin: Maintain the book catalogue",
     "applicationVersion": { "version": "1.0.0" },
     "dataSources": {
       "mainService": {
         "uri": "/admin/",
         "type": "OData",
-        "settings": {
-          "odataVersion": "4.0"
-        }
+        "settings": { "odataVersion": "4.0" }
       }
     }
   },
-  "sap.ui": {
-    "technology": "UI5",
-    "fullWidth": false
-  },
+  "sap.ui": { "technology": "UI5" },
   "sap.ui5": {
     "dependencies": {
       "minUI5Version": "1.108.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.core": {},
-        "sap.fe.templates": {}
+        "sap.ui.layout": {}
       }
+    },
+    "rootView": {
+      "viewName": "bookstore.admin.books.view.Books",
+      "type": "XML",
+      "id": "BooksView"
     },
     "models": {
       "": {
         "dataSource": "mainService",
-        "preload": true,
         "type": "sap.ui.model.odata.v4.ODataModel",
         "settings": {
           "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
-      },
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "bookstore.admin.books.i18n.i18n"
-        }
-      }
-    },
-    "routing": {
-      "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "BooksList",
-          "target": "BooksList"
-        },
-        {
-          "pattern": "Books({key}):?query:",
-          "name": "BooksObjectPage",
-          "target": "BooksObjectPage"
-        }
-      ],
-      "targets": {
-        "BooksList": {
-          "type": "Component",
-          "id": "BooksList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "entitySet": "Books",
-              "initialLoad": true,
-              "variantManagement": "None",
-              "navigation": {
-                "Books": {
-                  "detail": { "route": "BooksObjectPage" }
-                }
-              }
-            }
-          }
-        },
-        "BooksObjectPage": {
-          "type": "Component",
-          "id": "BooksObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "entitySet": "Books"
-            }
-          }
+          "autoExpandSelect": true
         }
       }
     }

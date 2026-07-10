@@ -1,0 +1,81 @@
+<mvc:View
+  controllerName="bookstore.admin.authors.controller.Authors"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  displayBlock="true">
+
+  <!-- ── Create / Edit Dialog ──────────────────────────────────────────── -->
+  <mvc:dependents>
+    <Dialog id="authorDialog" title="{dialog>/title}" contentWidth="560px"
+      draggable="true" resizable="true">
+      <content>
+        <f:SimpleForm layout="ResponsiveGridLayout" editable="true"
+          labelSpanL="3" labelSpanM="3" columnsL="1" columnsM="1"
+          class="sapUiSmallMargin">
+          <f:content>
+            <Label text="Full Name" required="true" />
+            <Input value="{dialog>/data/name}" placeholder="Author's full name" />
+
+            <Label text="Country" />
+            <Input value="{dialog>/data/country}" placeholder="Country of origin" />
+
+            <Label text="About the Author" />
+            <TextArea value="{dialog>/data/about}" rows="6" width="100%"
+              placeholder="Biographical information..." />
+          </f:content>
+        </f:SimpleForm>
+      </content>
+      <beginButton>
+        <Button text="Save" type="Emphasized" press=".onSave" />
+      </beginButton>
+      <endButton>
+        <Button text="Cancel" press=".onCancel" />
+      </endButton>
+    </Dialog>
+  </mvc:dependents>
+
+  <!-- ── Main Page ─────────────────────────────────────────────────────── -->
+  <Page title="Manage Authors – Admin">
+    <headerContent>
+      <Button text="New Author" type="Emphasized" icon="sap-icon://add" press=".onNew" />
+    </headerContent>
+    <content>
+      <Table
+        id="authorsTable"
+        items="{
+          path: '/Authors',
+          parameters: {
+            $select: 'ID,name,country,about'
+          }
+        }"
+        growing="true"
+        growingThreshold="20"
+        noDataText="No authors yet. Click 'New Author' to add one.">
+
+        <columns>
+          <Column width="35%"><Text text="Name" /></Column>
+          <Column width="25%"><Text text="Country" /></Column>
+          <Column width="28%"><Text text="About" /></Column>
+          <Column width="12%" hAlign="End"><Text text="Actions" /></Column>
+        </columns>
+
+        <items>
+          <ColumnListItem>
+            <cells>
+              <Text text="{name}" />
+              <Text text="{country}" />
+              <Text text="{about}" maxLines="2" wrapping="true" />
+              <HBox justifyContent="End">
+                <Button icon="sap-icon://edit"   tooltip="Edit"   type="Transparent" press=".onEdit" />
+                <Button icon="sap-icon://delete" tooltip="Delete" type="Transparent" press=".onDelete" />
+              </HBox>
+            </cells>
+          </ColumnListItem>
+        </items>
+
+      </Table>
+    </content>
+  </Page>
+
+</mvc:View>
