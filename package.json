@@ -9,6 +9,9 @@
   "dependencies": {
     "express": "^4"
   },
+  "optionalDependencies": {
+    "@cap-js/sqlite": "^1"
+  },
   "cds": {
     "requires": {
       "auth": {
