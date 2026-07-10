@@ -1,0 +1,80 @@
+<mvc:View
+  controllerName="bookstore.shop.controller.BookDetail"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+
+  <Page
+    title="{title}"
+    showNavButton="true"
+    navButtonPress=".onNavBack">
+
+    <content>
+      <VBox class="sapUiMediumMargin">
+
+        <!-- ── Book Info ─────────────────────────────────────── -->
+        <Panel headerText="Book Details" expandable="false" class="sapUiSmallMarginBottom">
+          <f:SimpleForm
+            layout="ResponsiveGridLayout"
+            editable="false"
+            labelSpanL="3" labelSpanM="3"
+            columnsL="2" columnsM="2">
+            <f:content>
+              <Label text="Author" />       <Text text="{authorName}" />
+              <Label text="Country" />      <Text text="{authorCountry}" />
+              <Label text="Publisher" />    <Text text="{publishHouse}" />
+              <Label text="Published" />    <Text text="{publishedDate}" />
+              <Label text="Stock" />
+              <ObjectStatus
+                text="{= ${stock} > 0 ? ${stock} + ' copies available' : 'Out of stock'}"
+                state="{= ${stock} > 0 ? 'Success' : 'Error'}" />
+            </f:content>
+          </f:SimpleForm>
+        </Panel>
+
+        <!-- ── Abstract ──────────────────────────────────────── -->
+        <Panel headerText="About this Book" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
+          <VBox class="sapUiSmallMargin">
+            <Text text="{abstract}" wrapping="true" />
+          </VBox>
+        </Panel>
+
+        <!-- ── About the Author ──────────────────────────────── -->
+        <Panel headerText="About the Author" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
+          <VBox class="sapUiSmallMargin">
+            <Text text="{authorAbout}" wrapping="true" />
+          </VBox>
+        </Panel>
+
+        <!-- ── Place an Order ────────────────────────────────── -->
+        <Panel headerText="Place an Order" expandable="false" class="sapUiSmallMarginBottom">
+          <VBox class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+
+            <Label text="Your Name" required="true" class="sapUiSmallMarginTop" />
+            <Input id="customerName" placeholder="Enter your full name" width="100%" />
+
+            <Label text="Email Address" required="true" class="sapUiSmallMarginTop" />
+            <Input id="customerEmail" placeholder="Enter your email" type="Email" width="100%" />
+
+            <Button
+              id="orderBtn"
+              text="Place Order"
+              type="Emphasized"
+              press=".onPlaceOrder"
+              enabled="{= ${stock} > 0}"
+              class="sapUiSmallMarginTop" />
+
+            <Text
+              visible="{= ${stock} <= 0}"
+              text="This book is currently out of stock and cannot be ordered."
+              class="sapUiSmallMarginTop" />
+
+          </VBox>
+        </Panel>
+
+      </VBox>
+    </content>
+
+  </Page>
+</mvc:View>

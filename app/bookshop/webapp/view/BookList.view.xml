@@ -1,0 +1,53 @@
+<mvc:View
+  controllerName="bookstore.shop.controller.BookList"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+
+  <Page title="SAP Book-Store" showNavButton="false">
+
+    <subHeader>
+      <Bar>
+        <contentMiddle>
+          <SearchField
+            width="40%"
+            placeholder="Search by title or author..."
+            search=".onSearch"
+            liveChange=".onSearch" />
+        </contentMiddle>
+      </Bar>
+    </subHeader>
+
+    <content>
+      <VBox class="sapUiMediumMargin">
+        <List
+          id="bookList"
+          items="{/Books}"
+          mode="None"
+          growing="true"
+          growingThreshold="12"
+          noDataText="No books found.">
+
+          <ObjectListItem
+            title="{title}"
+            intro="{authorName}"
+            number="{stock}"
+            numberUnit="in stock"
+            type="Active"
+            press=".onBookPress">
+            <attributes>
+              <ObjectAttribute text="{publishHouse}" />
+              <ObjectAttribute text="{= ${publishedDate} ? 'Published: ' + ${publishedDate} : '' }" />
+            </attributes>
+            <firstStatus>
+              <ObjectStatus
+                text="{= ${stock} > 0 ? 'Available' : 'Out of Stock'}"
+                state="{= ${stock} > 0 ? 'Success' : 'Error'}" />
+            </firstStatus>
+          </ObjectListItem>
+
+        </List>
+      </VBox>
+    </content>
+
+  </Page>
+</mvc:View>

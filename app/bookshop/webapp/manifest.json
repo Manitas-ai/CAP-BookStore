@@ -1,0 +1,88 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "bookstore.shop",
+    "type": "application",
+    "title": "SAP Book-Store",
+    "description": "Browse and order books",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "catalogService": {
+        "uri": "/browse/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "fullWidth": true
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "rootView": {
+      "viewName": "bookstore.shop.view.App",
+      "type": "XML",
+      "id": "AppView"
+    },
+    "models": {
+      "": {
+        "dataSource": "catalogService",
+        "preload": true,
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        }
+      },
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "bookstore.shop.i18n.i18n"
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "bookstore.shop.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "name": "books",
+          "pattern": "",
+          "target": "books"
+        },
+        {
+          "name": "bookDetail",
+          "pattern": "books/{bookID}",
+          "target": "bookDetail"
+        }
+      ],
+      "targets": {
+        "books": {
+          "viewName": "BookList",
+          "viewId": "BookList"
+        },
+        "bookDetail": {
+          "viewName": "BookDetail",
+          "viewId": "BookDetail"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "book-store",
+  "version": "1.0.0",
+  "description": "SAP Book-Store – Learning POC",
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch"
+  },
+  "dependencies": {
+    "express": "^4"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "admin": {
+            "password": "Admin123",
+            "roles": ["admin"]
+          },
+          "*": true
+        }
+      }
+    },
+    "server": {
+      "cors": true
+    }
+  }
+}

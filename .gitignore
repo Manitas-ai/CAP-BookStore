@@ -1,0 +1,22 @@
+# CAP build output
+gen/
+@cds-models/
+
+# Dependencies
+node_modules/
+
+# SQLite database files
+*.db
+*.sqlite
+
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAP Book-Store</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "72", "72full", Arial, Helvetica, sans-serif;
+      background: #f5f6f7;
+      color: #32363a;
+    }
+    header {
+      background: #0070f2;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header h1 { font-size: 1.4rem; font-weight: 400; }
+    header span { font-size: 0.85rem; opacity: 0.8; }
+    .tiles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 2.5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .tile {
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      padding: 1.5rem;
+      width: 240px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .tile:hover { box-shadow: 0 4px 16px rgba(0,0,0,.12); border-color: #0070f2; }
+    .tile-icon { font-size: 2rem; }
+    .tile-title { font-size: 1rem; font-weight: 600; }
+    .tile-desc  { font-size: 0.82rem; color: #6a6d70; line-height: 1.4; }
+    .tile-badge {
+      margin-top: auto;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+    .badge-public { background: #e8f5e9; color: #256f3a; }
+    .badge-admin  { background: #fff3e0; color: #b44b00; }
+    .section-title {
+      padding: 2rem 2rem 0.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #89919a;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>SAP Book-Store</h1>
+      <span>Learning POC &nbsp;|&nbsp; SAP CAP + UI5 + Fiori Elements</span>
+    </div>
+  </header>
+
+  <p class="section-title">Customer</p>
+  <div class="tiles">
+    <a class="tile" href="bookshop/webapp/index.html">
+      <div class="tile-icon">📚</div>
+      <div class="tile-title">Book-Store</div>
+      <div class="tile-desc">Browse the book catalogue and place an order. No login required.</div>
+      <span class="tile-badge badge-public">Public</span>
+    </a>
+  </div>
+
+  <p class="section-title">Administration &nbsp; (admin / Admin123)</p>
+  <div class="tiles">
+    <a class="tile" href="admin-books/webapp/index.html">
+      <div class="tile-icon">📖</div>
+      <div class="tile-title">Manage Books</div>
+      <div class="tile-desc">Create, edit and delete books. Assign authors, set stock levels and abstracts.</div>
+      <span class="tile-badge badge-admin">Admin login required</span>
+    </a>
+    <a class="tile" href="admin-authors/webapp/index.html">
+      <div class="tile-icon">✍️</div>
+      <div class="tile-title">Manage Authors</div>
+      <div class="tile-desc">Maintain the list of authors, their country and biographical information.</div>
+      <span class="tile-badge badge-admin">Admin login required</span>
+    </a>
+  </div>
+
+</body>
+</html>
