@@ -22,7 +22,7 @@ modules:
       builder: custom
       commands:
         - npm ci
-        - npx cds deploy --to sqlite:bookstore.db
+        - ./node_modules/.bin/cds deploy --to sqlite:bookstore.db
       ignore:
         - node_modules/
         - .env
