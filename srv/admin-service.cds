@@ -1,7 +1,6 @@
 using { bookstore } from '../db/schema';
 
-// Admin service – requires 'admin' role (basic auth: admin / Admin123)
-@requires: 'admin'
+// Admin service – no auth for local/BAS POC (auth via XSUAA when deployed to CF)
 service AdminService @(path: '/admin') {
 
   entity Books   as projection on bookstore.Books;
