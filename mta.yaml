@@ -19,12 +19,14 @@ modules:
       memory: 256M
       disk-quota: 512M
     build-parameters:
-      builder: npm
+      builder: custom
+      commands:
+        - npm ci
+        - npx cds deploy --to sqlite:bookstore.db
       ignore:
         - node_modules/
         - .env
         - default-env.json
-        - "*.db"
         - .git/
     provides:
       - name: srv-api

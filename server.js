@@ -1,14 +1,10 @@
 'use strict'
 // Custom server entry point for CF deployment.
-// Deploys the SQLite schema + CSV seed data, then starts the CAP HTTP server.
-// Uses require() instead of the cds CLI so it works on CF where the cds
-// binary is not on PATH (packages live in /home/vcap/deps/0/node_modules/).
+// bookstore.db is pre-built during 'mbt build' (npx cds deploy --to sqlite:bookstore.db)
+// and shipped inside the MTA archive — no runtime deploy needed.
 const cds = require('@sap/cds')
 
-;(async () => {
-  await cds.deploy()       // create tables + load CSV seed data into bookstore.db
-  await cds.serve('all')   // start HTTP server on process.env.PORT (set by CF)
-})().catch(err => {
+cds.serve('all').catch(err => {
   console.error('Startup failed:', err)
   process.exit(1)
 })
