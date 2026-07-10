@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SAP Book-Store – Learning POC",
   "scripts": {
-    "start": "cds deploy --to sqlite && cds serve",
+    "start": "node server.js",
     "watch": "cds watch"
   },
   "dependencies": {
