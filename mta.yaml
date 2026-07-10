@@ -6,7 +6,8 @@ version: 1.0.0
 # ── Single-module deployment ────────────────────────────────────────────────
 # CAP Node.js serves BOTH the OData APIs (/browse/, /admin/) AND the static
 # UI5 files from app/ — no separate approuter module needed.
-# SQLite in-memory is used (no HANA service binding required on BTP Trial).
+# Local dev: SQLite via [default] profile in package.json
+# CF production: HANA Cloud HDI container (book-store-db) via [production] profile
 # Auth stays mocked (no XSUAA). Fine for POC; swap to XSUAA for production.
 
 modules:
@@ -19,19 +20,19 @@ modules:
       memory: 256M
       disk-quota: 512M
     build-parameters:
-      builder: custom
-      commands:
-        - npm ci
-        - ./node_modules/.bin/cds deploy --to sqlite:bookstore.db
+      builder: npm
       ignore:
         - node_modules/
         - .env
         - default-env.json
+        - "*.db"
         - .git/
     provides:
       - name: srv-api
         properties:
           srv-url: ${default-url}
+    requires:
+      - name: book-store-db
 
   # ── UI modules listed for BAS Storyboard visibility ─────────────────────
   # supported-platforms: [] means they are NOT deployed separately to CF.
@@ -54,3 +55,10 @@ modules:
     path: app/admin-authors
     build-parameters:
       supported-platforms: []
+
+resources:
+  - name: book-store-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

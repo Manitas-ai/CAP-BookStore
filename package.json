@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "^4",
     "@sap/cds": "^8",
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@cap-js/hana": "^1"
   },
   "cds": {
     "requires": {
@@ -26,6 +27,11 @@
           },
           "*": true
         }
+      }
+    },
+    "[production]": {
+      "requires": {
+        "db": { "kind": "hana" }
       }
     },
     "server": {
