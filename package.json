@@ -6,6 +6,9 @@
     "start": "cds-serve",
     "watch": "cds watch"
   },
+  "devDependencies": {
+    "@sap/cds-dk": "^8"
+  },
   "dependencies": {
     "express": "^4",
     "@sap/cds": "^8",
