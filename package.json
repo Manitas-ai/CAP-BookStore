@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SAP Book-Store – Learning POC",
   "scripts": {
-    "start": "node server.js",
+    "start": "cds-serve",
     "watch": "cds watch"
   },
   "dependencies": {

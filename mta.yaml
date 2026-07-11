@@ -3,18 +3,18 @@ ID: book-store
 description: SAP Book-Store Learning POC
 version: 1.0.0
 
-# ── Single-module deployment ────────────────────────────────────────────────
-# CAP Node.js serves BOTH the OData APIs (/browse/, /admin/) AND the static
-# UI5 files from app/ — no separate approuter module needed.
-# Local dev: SQLite via [default] profile in package.json
-# CF production: HANA Cloud HDI container (book-store-db) via [production] profile
-# Auth stays mocked (no XSUAA). Fine for POC; swap to XSUAA for production.
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
 
 modules:
 
   - name: book-store-srv
     type: nodejs
-    path: .
+    path: gen/srv
     parameters:
       buildpack: nodejs_buildpack
       memory: 256M
@@ -23,10 +23,6 @@ modules:
       builder: npm
       ignore:
         - node_modules/
-        - .env
-        - default-env.json
-        - "*.db"
-        - .git/
     provides:
       - name: srv-api
         properties:
@@ -34,10 +30,16 @@ modules:
     requires:
       - name: book-store-db
 
-  # ── UI modules listed for BAS Storyboard visibility ─────────────────────
-  # supported-platforms: [] means they are NOT deployed separately to CF.
-  # They are served as static files by book-store-srv above.
+  - name: book-store-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: book-store-db
 
+  # UI modules listed for BAS Storyboard visibility only.
+  # supported-platforms: [] = NOT deployed separately; served statically by book-store-srv.
   - name: book-store-bookshop
     type: html5
     path: app/bookshop
@@ -62,3 +64,6 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+
+parameters:
+  enable-parallel-deployments: true
