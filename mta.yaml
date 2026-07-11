@@ -7,7 +7,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm ci
+        - npm install
         - ./node_modules/.bin/cds build --production
 
 modules:
